@@ -1,0 +1,37 @@
+name: Publish to TestPyPI
+
+on:
+  workflow_dispatch: # Allows manual triggering from the GitHub Actions UI
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4 # Checks out your repository code
+
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x' # Use a general Python 3 version
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        echo "$HOME/.local/bin" >> $GITHUB_PATH # Add Poetry to PATH for subsequent steps
+
+    - name: Configure Poetry for TestPyPI
+      # This command tells Poetry where TestPyPI is and how to authenticate.
+      # The token is fetched from GitHub Secrets.
+      run: |
+        poetry config repositories.testpypi https://test.pypi.org/legacy/
+        poetry config pypi-token.testpypi ${{ secrets.TESTPYPI_API_TOKEN }}
+      env:
+        # Ensure the secret is available in this step
+        TESTPYPI_API_TOKEN: ${{ secrets.TESTPYPI_API_TOKEN }}
+
+    - name: Build and Publish package to TestPyPI
+      # The '--build' flag builds the package before publishing.
+      # The '--repository testpypi' flag specifies the target repository.
+      run: poetry publish --build --repository testpypi
+
