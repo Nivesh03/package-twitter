@@ -1,8 +1,10 @@
 import os
+
 import tweepy
 
+
 class TwitterBot:
-    
+
     def __init__(self):
         # Load credentials from environment variables
         self.consumer_key = os.getenv("TWITTER_CONSUMER_KEY")
@@ -10,7 +12,14 @@ class TwitterBot:
         self.access_token = os.getenv("TWITTER_ACCESS_TOKEN")
         self.access_token_secret = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
 
-        if not all([self.consumer_key, self.consumer_secret, self.access_token, self.access_token_secret]):
+        if not all(
+            [
+                self.consumer_key,
+                self.consumer_secret,
+                self.access_token,
+                self.access_token_secret,
+            ]
+        ):
             raise ValueError(
                 "Twitter API credentials not found in environment variables. "
                 "Please set TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, "
@@ -22,7 +31,7 @@ class TwitterBot:
             consumer_key=self.consumer_key,
             consumer_secret=self.consumer_secret,
             access_token=self.access_token,
-            access_token_secret=self.access_token_secret
+            access_token_secret=self.access_token_secret,
         )
 
     def post_tweet(self, text: str) -> dict:
@@ -51,12 +60,13 @@ class TwitterBot:
             return response.data
         except tweepy.TweepyException as e:
             print(f"Error posting tweet: {e}")
-            raise # Re-raise the exception to be handled by the caller
+            raise  # Re-raise the exception to be handled by the caller
 
 
 # You might want to expose a simple function from __init__.py
 # src/twitter_bot_cli/__init__.py:
 from .tweet import TwitterBot
+
 
 # Optional: if you want to expose a direct function for convenience
 def tweet_now(text: str):
