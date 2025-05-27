@@ -1,6 +1,6 @@
 [project]
 name = "package-twitter"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = [
     {name = "Nivesh03",email = "niveshsharma67@gmail.com"}
@@ -35,4 +35,4 @@ requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-tweet = "package-twiiter.cli:main" # This defines the 'tweet' command
+tweet = "package_twitter.cli:main" # This defines the 'tweet' command
