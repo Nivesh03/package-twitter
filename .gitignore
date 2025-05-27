@@ -7,3 +7,4 @@ __pycache__/
 *.pyd
 .ruff_cache/
 dist/
+*/__pycache__/
