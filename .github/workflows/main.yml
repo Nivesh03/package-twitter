@@ -1,33 +1,32 @@
-name: Publish to TestPyPI
+name: Publish to PyPI
 
 on:
   push:
     tags:
-      - 'v*'  # Runs only on version tags like v1.0.0
+      - 'v*'  # Only run on version tags like v1.0.0
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4 # Checks out your repository code
+    - uses: actions/checkout@v4
 
     - name: Set up Python 3.x
       uses: actions/setup-python@v5
       with:
-        python-version: '3.x' # Use a general Python 3 version
+        python-version: '3.x'
 
     - name: Install Poetry
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
-        echo "$HOME/.local/bin" >> $GITHUB_PATH # Add Poetry to PATH for subsequent steps
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-    - name: Configure Poetry for TestPyPI
+    - name: Configure Poetry for PyPI
       run: |
-        poetry config repositories.testpypi https://test.pypi.org/legacy/
-        poetry config pypi-token.testpypi ${{ secrets.TESTPYPI_API_TOKEN }}
+        poetry config pypi-token.pypi ${{ secrets.PYPI_API_TOKEN }}
       env:
-        TESTPYPI_API_TOKEN: ${{ secrets.TESTPYPI_API_TOKEN }}
+        PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
 
-    - name: Build and Publish package to TestPyPI
-      run: poetry publish --build --repository testpypi
+    - name: Build and Publish package to PyPI
+      run: poetry publish --build
