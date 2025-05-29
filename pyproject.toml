@@ -1,6 +1,6 @@
 [project]
 name = "package-twitter"
-version = "0.1.4"
+version = "0.1.5"
 description = "a lightweight Python package designed to simplify programmatic tweeting on Twitter"
 authors = [
     {name = "Nivesh03",email = "niveshsharma67@gmail.com"}

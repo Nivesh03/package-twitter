@@ -41,8 +41,10 @@ You can install `Package-Twitter` directly from PyPI:
 pip install package-twitter
 ```
 
+NOTE: `package-twitter` supports python versions 3.11 or later.
+
 ## 🔑 Twitter API Setup (Crucial!)
-To use `Package-Twitter`, you must obtain Twitter API credentials from the Twitter Developer Portal.
+To use `package-twitter`, you must obtain Twitter API credentials from the Twitter Developer Portal.
 
 * **Apply for a Developer Account:** If you don't have one, apply and explain your use case.
 
@@ -57,13 +59,13 @@ To use `Package-Twitter`, you must obtain Twitter API credentials from the Twitt
   
 * **Enable "Read and Write" Permissions:** Crucially, ensure your app's permissions are set to "Read and Write" in the Developer Portal. Without write permissions, you won't be able to post tweets.
 
-* **Set Environment Variables:** Set the API keys as environment variables in your system. 
+* **Set Environment Variables:** Create a new python environment or activate a already created environment with python version >=3.11. Then install `package-twitter` in this environment. Set the API keys as environment variables using the following methods.
 
   * **Using `python-dotenv`**
-    * Create a .env file
+    * Create a `.env` file
   
-        This file contains key-value pairs of environment variables. Make sure to provide the following names to the keys. Copy these values and change the placeholders with actual keys.
-        ``` .env
+        Create a new file named `.env`. This file contains key-value pairs of environment variables. Make sure to provide the following names to the keys. Copy these values and change the placeholders with actual keys.
+        ``` bash
         TWITTER_CONSUMER_KEY="your_consumer_key_here"
         TWITTER_CONSUMER_SECRET="your_consumer_secret_here"
         TWITTER_ACCESS_TOKEN="your_access_token_here"
@@ -71,13 +73,13 @@ To use `Package-Twitter`, you must obtain Twitter API credentials from the Twitt
         ```
     * Install the `python-dotenv` package
 
-        `python-dotenv` reads key-value pairs from a .env file and can set them as environment variables.
+        `python-dotenv` reads key-value pairs from a `.env` file and can set them as environment variables.
         ```bash
         pip install python-dotenv
         ```
-    * Load .env values in your Python code
+    * Load `.env` values in your Python code
 
-        Use the dotenv module along with os.environ:
+        Once the `python-dotenv` package is installed and the `.env` file has been created, use the dotenv module along with os.environ to load them into the environment:
 
         ```python
         from dotenv import load_dotenv
